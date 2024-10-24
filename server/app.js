@@ -1,30 +1,41 @@
 require('dotenv').config(); // Load environment variables from .env file
-const express = require('express'); // Import Express  library or framework type hai ye
+const express = require('express'); // Import Express library
 const cors = require('cors'); // Import CORS for handling cross-origin requests
 const bodyParser = require('body-parser'); // Import body-parser for parsing JSON
 const mongoose = require('mongoose');
 const Item = require('./models/Item');
 
-const app = express();  //app ke andar ek ebject daal de gi jisme sab method ho ge(dall express function rahe hai par wo object ban jata hai app mai)
+const app = express(); // Create an instance of Express
 const PORT = process.env.PORT;
 
 // Middleware
 app.use(cors()); // Enable CORS
-app.use(bodyParser.json()); // Parse JSON bodies ,muje bhi nahi pata
+app.use(bodyParser.json()); // Parse JSON bodies
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('MongoDB connected'))
     .catch(err => { console.error('MongoDB connection error:', err); process.exit(1); });
 
-//home page ka route
-app.get('/items', async (req, res) => {
+// Default route to fetch and respond with items as JSON
+app.get('/', async (req, res) => {
     try {
-        const items = await Item.find(); // model item hai na
-        res.json(items); // item as josn bej do  taaki waha pe work kar sake
+        const items = await Item.find(); // Fetch all items from the database
+        res.json(items); // Respond with items as JSON
     } catch (error) {
         console.error('Error fetching items:', error);
-        res.status(500).send('Server error');
+        res.status(500).send('Server error'); // Respond with a 500 status code for server error
+    }
+});
+
+// Home page route to get all items
+app.get('/items', async (req, res) => {
+    try {
+        const items = await Item.find(); // Fetch all items from the database
+        res.json(items); // Respond with items as JSON
+    } catch (error) {
+        console.error('Error fetching items:', error);
+        res.status(500).send('Server error'); // Respond with a 500 status code for server error
     }
 });
 
@@ -46,7 +57,7 @@ app.get('/view/:id', async (req, res) => {
 // POST route to handle adding a new item
 app.post('/new', async (req, res) => {
     try {
-        const newItem = new Item(req.body); // Create a new item instance, req.body matlab waha se jo beja ho ga
+        const newItem = new Item(req.body); // Create a new item instance
         await newItem.save(); // Save the new item to the database
         res.sendStatus(200); // Respond with a 200 status code
     } catch (error) {
@@ -55,7 +66,7 @@ app.post('/new', async (req, res) => {
     }
 });
 
-// view page mai display karne ke liye placeholder mai details, agar warna iss route ki koi zaroort nahi thi
+// GET route for editing item details (placeholder)
 app.get('/edit/:id', async (req, res) => {
     try {
         const { id } = req.params; // Get the ID from the request parameters
@@ -63,7 +74,7 @@ app.get('/edit/:id', async (req, res) => {
         if (!item) {
             return res.status(404).send('Item not found'); // Handle case where item doesn't exist
         }
-        res.json(item); // Respond with the found item, hamesha ese hi bej te hai
+        res.json(item); // Respond with the found item
     } catch (error) {
         console.error('Error fetching item:', error);
         res.sendStatus(500); // Respond with a 500 status code for server error
@@ -73,8 +84,8 @@ app.get('/edit/:id', async (req, res) => {
 // PATCH route to update an item by ID
 app.patch('/edit/:id', async (req, res) => {
     try {
-        const { id } = req.params; // Get the ID from params, jo url mai hota hai
-        const { imageUrl, price, name, desc } = req.body; // Destructure the updated fields from the request body
+        const { id } = req.params; // Get the ID from params
+        const { imageUrl, price, name, desc } = req.body; // Destructure updated fields
 
         // Find the item by ID
         const item = await Item.findById(id);
