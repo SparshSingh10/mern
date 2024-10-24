@@ -14,6 +14,7 @@ export default function App() {
       <Navbar />
       <div className="mt-[84px]"> {/* Adjust based on your navbar height */}
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/items" element={<Home />} />
           <Route path="/new" element={<New />} />
           <Route path="/about" element={<About />} />
