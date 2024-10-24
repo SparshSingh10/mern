@@ -1,27 +1,26 @@
 {
     "version": 2,
     "builds": [
-      {
-        "src": "client/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "client/build" // Adjust if your build output is different
+        {
+            "src": "client/package.json",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "client/build"
+            }
+        },
+        {
+            "src": "server/app.js",
+            "use": "@vercel/node"
         }
-      },
-      {
-        "src": "server/app.js", // Your server entry point
-        "use": "@vercel/node"
-      }
     ],
     "routes": [
-      {
-        "src": "/api/(.*)",      // Any API request that starts with /api/
-        "dest": "server/app.js"  // Route to your server's entry point
-      },
-      {
-        "src": "/(.*)",           // Any other requests
-        "dest": "client/build/$1" // Serve static files from the React build folder
-      }
+        {
+            "src": "/api/(.*)",
+            "dest": "server/app.js"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "client/build/$1"
+        }
     ]
-  }
-  
+}
