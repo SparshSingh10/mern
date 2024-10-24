@@ -7,8 +7,8 @@ function Home() {
 
     useEffect(() => {
         const fetchData = async () => {
-                const response = await axios.get('http://localhost:5000/items'); // Use Axios to fetch data
-                setItems(response.data); // Set items from response
+            const response = await axios.get('https://mern-2-wbdf.onrender.com/'); // Use Axios to fetch data
+            setItems(response.data); // Set items from response
         };
 
         fetchData();
