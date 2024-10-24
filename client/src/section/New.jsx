@@ -11,7 +11,7 @@ function New() {
     e.preventDefault();
     const obj = { imageUrl, name, price: parseFloat(price), desc };
 
-    axios.post('http://localhost:5000/new', obj)
+    axios.post('https://mern-2-wbdf.onrender.com/new', obj)
       .then(response => {
         console.log("Data sent to server:", obj);
 
