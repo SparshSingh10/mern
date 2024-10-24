@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from 'react-router-dom';
 
 const navlinks = [
-    { id: 1, name: 'Home', path: '/' },
+    { id: 1, name: 'Home', path: '/items' },
     { id: 2, name: 'Add', path: '/new' },
     { id: 3, name: 'About Us', path: '/about' }
 ];
@@ -29,7 +29,7 @@ function Navbar() {
             <header className="fixed top-0 left-0 right-0 bg-black/90 z-50 ">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex justify-between items-center py-5 mx-auto">
-                        <Link className="text-white mx-4 text-xl font-bold" to="/">E-Commerce</Link>
+                        <Link className="text-white mx-4 text-xl font-bold" to="/items">E-Commerce</Link>
                         <button className="sm:hidden mx-4" onClick={toggle}>
                             <img src={isOpen ? '/assets/close.svg' : '/assets/menu.svg'} alt="Menu" className="w-6 h-6" />
                         </button>

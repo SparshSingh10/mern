@@ -6,6 +6,7 @@ import Footer from './section/Footer';
 import Home from './section/Home';
 import Navbar from './section/Navbar';
 import New from './section/New'; // Import your new component here
+import View from './section/View';
 
 export default function App() {
   return (
@@ -13,10 +14,11 @@ export default function App() {
       <Navbar />
       <div className="mt-[84px]"> {/* Adjust based on your navbar height */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/items" element={<Home />} />
           <Route path="/new" element={<New />} />
           <Route path="/about" element={<About />} />
-          <Route path="/edit" element={<Edit />} />
+          <Route path="/edit/:id" element={<Edit />} />
+          <Route path="/view/:id" element={<View />} /> {/* View route with ID */}
         </Routes>
       </div>
 

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 function New() {
@@ -9,12 +10,16 @@ function New() {
   function handleSubmit(e) {
     e.preventDefault();
     const obj = { imageUrl, name, price: parseFloat(price), desc };
-    console.log(obj);
 
-    setDesc('');
-    setImageUrl('');
-    setName('');
-    setPrice('');
+    axios.post('http://localhost:5000/new', obj)
+      .then(response => {
+        console.log("Data sent to server:", obj);
+
+        setDesc('');
+        setImageUrl('');
+        setName('');
+        setPrice('');
+      })
   };
   return (
     <>
