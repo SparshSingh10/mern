@@ -32,7 +32,7 @@ function Edit() {
         const obj = { imageUrl, name, price: parseFloat(price), desc };
 
         try {
-            await axios.patch(`http://localhost:5000/edit/${id}`, obj);
+            await axios.patch(`https://mern-2-wbdf.onrender.com/edit/${id}`, obj);
             navigate('/items'); // Redirect to home or another route after successful update
         } catch (error) {
             console.error('Error updating item:', error);
