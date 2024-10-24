@@ -107,6 +107,16 @@ app.patch('/edit/:id', async (req, res) => {
     }
 });
 
+app.delete('/delete/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        await Item.findByIdAndDelete(id); // Adjust this depending on your database
+        res.status(200).json({ message: 'Item deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error deleting item' });
+    }
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`); // Log server running message

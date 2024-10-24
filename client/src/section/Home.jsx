@@ -7,12 +7,22 @@ function Home() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('https://mern-2-wbdf.onrender.com/'); // Use Axios to fetch data
-            setItems(response.data); // Set items from response
+            const response = await axios.get('https://mern-2-wbdf.onrender.com/'); // Fetch items from backend
+            setItems(response.data); // Set items to state
         };
 
         fetchData();
     }, []);
+
+    // Delete item by ID
+    const deleteItem = async (id) => {
+        try {
+            await axios.delete(`https://mern-2-wbdf.onrender.com/delete/${id}`); // Send DELETE request to backend
+            setItems(items.filter(item => item._id !== id)); // Update state to remove deleted item
+        } catch (error) {
+            console.error('Error deleting item:', error); // Handle error
+        }
+    };
 
     return (
         <div className="pt-12 px-5 grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5 h-full">
@@ -34,7 +44,10 @@ function Home() {
                                 View
                             </button>
                         </Link>
-                        <button className='bg-red-700 m-2 text-white rounded p-3 h-10 w-24 flex justify-center items-center hover:bg-red-600 transition duration-300'>
+                        <button
+                            onClick={() => deleteItem(item._id)} // Attach delete handler
+                            className='bg-red-700 m-2 text-white rounded p-3 h-10 w-24 flex justify-center items-center hover:bg-red-600 transition duration-300'
+                        >
                             Delete
                         </button>
                     </div>
