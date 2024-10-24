@@ -9,7 +9,7 @@ function ViewItem() {
   useEffect(() => {
     const fetchItem = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/view/${id}`); // Fetch item by ID
+        const response = await axios.get(`https://mern-2-wbdf.onrender.com/view/${id}`); // Fetch item by ID
         setItem(response.data); // Set the item data
         // console.log(response.data);
 

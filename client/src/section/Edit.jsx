@@ -13,7 +13,7 @@ function Edit() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/edit/${id}`);
+                const response = await axios.get(`https://mern-2-wbdf.onrender.com/edit/${id}`);
                 setImg(response.data.imageUrl);
                 setPrice(response.data.price);
                 setName(response.data.name);
